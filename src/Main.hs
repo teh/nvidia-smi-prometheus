@@ -7,7 +7,7 @@ import System.Metrics.Prometheus.Concurrent.RegistryT
 import System.Metrics.Prometheus.Metric.Gauge (Gauge, set)
 
 import System.Process (readProcess)
-import Data.Attoparsec.Text (Parser, parseOnly, skip, isEndOfLine, endOfLine, skipSpace, decimal)
+import Data.Attoparsec.Text (Parser, parseOnly, skipWhile, isEndOfLine, endOfLine, skipSpace, decimal)
 import Control.Concurrent (forkIO, threadDelay)
 import Control.Monad (forever)
 import GHC.Base (String)
@@ -18,17 +18,17 @@ import GHC.Base (String)
 -- # Idx     W     C     %     %     %     %   MHz   MHz
 --    0    32    39     0     0     0     0  3505  1075
 
-data Stats a = Stats { gpu :: a, pwr :: a, temp :: a,  sm :: a, mem :: a, enc :: a, dec :: a, mclk :: a, pclk :: a }
+data Stats a = Stats { gpu :: a, pwr :: a, temp :: a,  sm :: a, mem :: a, enc :: a, dec :: a, mclk :: a, pclk :: a } deriving Show
 
 parseStats :: Parser (Stats Int)
 parseStats = do
   -- skip first two lines
-  skip (not . isEndOfLine)
+  skipWhile (not . isEndOfLine)
   endOfLine
-  skip (not . isEndOfLine)
+  skipWhile (not . isEndOfLine)
   endOfLine
   let sd = skipSpace *> decimal
-  Stats <$> decimal <*> sd  <*> sd  <*> sd  <*> sd  <*> sd  <*> sd  <*> sd  <*> sd
+  Stats <$> sd <*> sd  <*> sd  <*> sd  <*> sd  <*> sd  <*> sd  <*> sd  <*> sd
 
 
 readSMI :: IO String

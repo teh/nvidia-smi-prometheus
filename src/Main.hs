@@ -50,6 +50,7 @@ oneStats gauges = do
       set (fromIntegral (mclk stats)) (mclk gauges)
       set (fromIntegral (pclk stats)) (pclk gauges)
 
+
 main :: IO ()
 main = runRegistryT $ do
   -- dry-run so the program dies in thread 0 if nvidia-smi not available
@@ -68,6 +69,6 @@ main = runRegistryT $ do
 
   void $ liftIO $ forkIO $ forever $ do
     oneStats stats
-    threadDelay (1000 * 1000)
+    threadDelay (1000 * 10000)
 
   serveHttpTextMetricsT 9120 ["metrics"]

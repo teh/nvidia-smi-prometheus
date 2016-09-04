@@ -61,7 +61,7 @@ main = runRegistryT $ do
            <*> registerGauge "temp" mempty
            <*> registerGauge "sm" mempty
            <*> registerGauge "mem" mempty
-           <*> registerGauge "env" mempty
+           <*> registerGauge "enc" mempty
            <*> registerGauge "dec" mempty
            <*> registerGauge "mclk" mempty
            <*> registerGauge "pclk" mempty

@@ -70,4 +70,4 @@ main = runRegistryT $ do
     oneStats stats
     threadDelay (1000 * 1000)
 
-  serveHttpTextMetricsT 8080 ["metrics"]
+  serveHttpTextMetricsT 9120 ["metrics"]

@@ -1,0 +1,23 @@
+name: nvidia-smi-prometheus
+version: 0.1.0.0
+synopsis: Prometheus exporter for nvidia-smi information
+license: GPL-3
+
+ghc-options: -Wall -Werror
+default-extensions:
+  - OverloadedStrings
+  - NoImplicitPrelude
+  - ScopedTypeVariables
+
+dependencies:
+  - base >=4.9 && <5
+  - prometheus
+  - attoparsec
+  - text
+  - protolude
+  - process
+
+executables:
+  nvidia-smi-exporter:
+    main: Main.hs
+    source-dirs: src
